@@ -2,10 +2,10 @@
 #define PLUNK_H
 
 #include <Windows.h>
-#indlude <stdio.h>
+#include <stdio.h>
 #include <string.h>
 
-typedef HANDLE serial
+typedef HANDLE serial;
 
 /*+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	openPort();
@@ -34,6 +34,15 @@ void closePort(serial comPort);
 	Set the Baud rate of the serial port
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+*/
 int setBaudRate(serial comPort, int rate);
+
+/*+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+	getBaudRate();
+	
+		comPort -> handle of port
+	
+	Returns the Baud rate of the serial port
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+*/
+int getBaudRate(serial comPort);
 
 /*+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	setDataBits();
@@ -87,4 +96,4 @@ int serialWriteData(serial comPort, const char* data);
 int serialReadData(serial comPort, char* data, int length);
 
 
-#endif PLUNK_H
+#endif

@@ -1,7 +1,5 @@
 #include "PLuNK.h"
 
-typedef HANDLE serial
-
 /*+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	openPort();
 	
@@ -16,11 +14,27 @@ serial openPort(int index) {
 	char portName[15]= "\\\\.\\COM";
 	
 	sprintf(portId,"%d",index % 100);
-	strcat(portName,&portId);
+	strcat(portName,portId);
 	
 	comHandle = CreateFile(portName, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 	
 	if(comHandle == INVALID_HANDLE_VALUE) {
+		return NULL;
+	}
+	
+	COMMTIMEOUTS timeout = {0};
+	
+	timeout.ReadIntervalTimeout = 1;
+	timeout.ReadTotalTimeoutConstant = 1;
+	timeout.ReadTotalTimeoutMultiplier = 1;
+	timeout.WriteTotalTimeoutConstant = 1;
+	timeout.WriteTotalTimeoutMultiplier = 1;
+	
+	if(SetCommTimeouts(comHandle, &timeout) == FALSE) {
+		return NULL;
+	}
+	
+	if(SetCommMask(comHandle, EV_RXCHAR) == FALSE) {
 		return NULL;
 	}
 	
@@ -56,7 +70,7 @@ int setBaudRate(serial comPort, int rate) {
 	BOOL status = GetCommState(comPort, &dcbSerialParam);
 	
 	if(status == FALSE) {
-		return FALSE
+		return FALSE;
 	}
 	
 	dcbSerialParam.BaudRate = rate;
@@ -64,6 +78,26 @@ int setBaudRate(serial comPort, int rate) {
 	status = SetCommState(comPort, &dcbSerialParam);
 	
 	return status;
+}
+
+/*+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+	getBaudRate();
+	
+		comPort -> handle of port
+	
+	Returns the Baud rate of the serial port
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+*/
+int getBaudRate(serial comPort) {
+	
+	DCB dcbSerialParam = {0};
+	dcbSerialParam.DCBlength = sizeof(dcbSerialParam);
+	BOOL status = GetCommState(comPort, &dcbSerialParam);
+	
+	if(status == FALSE) {
+		return FALSE;
+	}
+	
+	return dcbSerialParam.BaudRate;
 }
 
 /*+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -81,7 +115,7 @@ int setDataBits(serial comPort, int bits) {
 	BOOL status = GetCommState(comPort, &dcbSerialParam);
 	
 	if(status == FALSE) {
-		return FALSE
+		return FALSE;
 	}
 	
 	dcbSerialParam.ByteSize = bits;
@@ -106,7 +140,7 @@ int setStopBits(serial comPort, int bits) {
 	BOOL status = GetCommState(comPort, &dcbSerialParam);
 	
 	if(status == FALSE) {
-		return FALSE
+		return FALSE;
 	}
 	
 	dcbSerialParam.StopBits = bits;
@@ -131,7 +165,7 @@ int setParityBits(serial comPort, int parity) {
 	BOOL status = GetCommState(comPort, &dcbSerialParam);
 	
 	if(status == FALSE) {
-		return FALSE
+		return FALSE;
 	}
 	
 	dcbSerialParam.Parity = parity;
