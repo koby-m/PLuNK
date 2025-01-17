@@ -13,7 +13,7 @@ Koby Miller
 January 16th, 2025
 
 **Description:**<br>
-A C library for reading and writing serial data to USB ports (COM ports). Useful for Arduino/Raspberry Pi/embedded systems in communicating with Windows computers.
+A C (and C++) library for reading and writing serial data to USB ports (COM ports). Useful for Arduino/Raspberry Pi/embedded systems in communicating with Windows computers.
 
 **Changelog:**<br>
 N/A
