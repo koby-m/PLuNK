@@ -1,5 +1,5 @@
 **Name:**<br>
-Name
+PLuNK for Windows
 
 **Version:**<br>
 1.0.0
@@ -10,10 +10,10 @@ Name
 Koby Miller
 
 **Date last modified:**<br>
-Date
+January 16th, 2025
 
 **Description:**<br>
-Words
+A C library for reading and writing serial data to USB ports (COM ports). Useful for Arduino/Raspberry Pi/embedded systems in communicating with Windows computers.
 
 **Changelog:**<br>
 N/A
