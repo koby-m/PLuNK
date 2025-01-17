@@ -1,6 +1,8 @@
 **Name:**<br>
 PLuNK for Windows
 
+![image](https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimage_gallery2%2FOrange-PNG-Clipart.png&f=1&nofb=1&ipt=af2cff5e0910890e610a6f448964b816000ef4e8e16a10a9e98e16aa85f7c5c4&ipo=images)
+
 **Version:**<br>
 1.0.0
 
